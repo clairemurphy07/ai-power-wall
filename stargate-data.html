@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supporting Data: Project Stargate & Texas ERCOT Hubs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased">
+
+    <header class="border-b border-slate-800 bg-slate-900/50 py-10 px-6">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xs font-semibold text-cyan-400 hover:underline">← Back to Main Dashboard</a>
+            <span class="text-xs text-slate-500 uppercase tracking-widest mono">Architecture Dossier</span>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 space-y-12">
+        <div>
+            <span class="text-cyan-400 text-xs uppercase tracking-wider font-semibold">Infrastructure Breakdown</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-4">Project Stargate & Texas ERCOT Integration</h1>
+            <p class="text-slate-400 text-lg">Financial scope, multi-state campus footprints, and hybrid microgrid architecture.</p>
+        </div>
+
+        <!-- Key Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <span class="text-slate-500 text-xs block mb-1">Target Capacity</span>
+                <span class="text-2xl font-bold text-white mono">10 Gigawatts (GW)</span>
+                <span class="text-xs text-slate-400 block mt-2">Cumulative multi-campus goal</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <span class="text-slate-500 text-xs block mb-1">Capital Deployment</span>
+                <span class="text-2xl font-bold text-cyan-400 mono">~$500 Billion</span>
+                <span class="text-xs text-slate-400 block mt-2">Multi-year infrastructure investment</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+                <span class="text-slate-500 text-xs block mb-1">Primary Grid Region</span>
+                <span class="text-2xl font-bold text-amber-400 mono">ERCOT (Texas)</span>
+                <span class="text-xs text-slate-400 block mt-2">Combined with behind-the-meter gas microgrids</span>
+            </div>
+        </div>
+
+        <!-- Partner Breakdown Table -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 space-y-6">
+            <h2 class="text-xl font-bold text-white">Key Backers & Regional Hubs</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="border-b border-slate-800 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="pb-3">Partner / Backer</th>
+                            <th class="pb-3">Primary Role</th>
+                            <th class="pb-3">Key U.S. Footprint</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                        <tr>
+                            <td class="py-4 font-semibold text-white">OpenAI</td>
+                            <td class="py-4">Frontier Model Developer & Primary Compute Consumer</td>
+                            <td class="py-4">Anchor workloads across all Oracle OCI sites</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-semibold text-white">Oracle (OCI)</td>
+                            <td class="py-4">Cloud Infrastructure & Supercluster Construction</td>
+                            <td class="py-4">Abilene, Texas & multi-state data halls</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-semibold text-white">SoftBank / SB Energy</td>
+                            <td class="py-4">Direct-to-Power & Microgrid Procurement</td>
+                            <td class="py-4">Lordstown (Ohio) & Milam County (Texas)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Power Strategy Context -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 space-y-4">
+            <h2 class="text-xl font-bold text-white">The Hybrid ERCOT Strategy</h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                Unlike heavily regulated regional monopolies, Texas's independent <strong>ERCOT</strong> market structure allows developers to move faster through commercial queue arrangements. However, to prevent grid instability from multi-hundred-megawatt spikes, Stargate campuses integrate <strong>on-site, behind-the-meter gas microgrids</strong> powered by advanced GE Vernova and Siemens turbines directly on the property—mirroring the core resilience philosophy pioneered in Memphis.
+            </p>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-12 text-center text-xs text-slate-500">
+        <a href="index.html" class="text-cyan-400 hover:underline">Return to Interactive Dashboard</a>
+    </footer>
+
+</body>
+</html>
