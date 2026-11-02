@@ -62,7 +62,7 @@
             <div class="max-w-2xl mb-10">
                 <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">🛠️ Simulator: Build a 1-Gigawatt AI Megacluster</h2>
                 <p class="text-slate-400 text-sm md:text-base">
-                    You have billions in capital and 100,000 advanced GPUs ready to ship. How will you power your data center? Make your choices below and see the consequences.
+                    You have billions in capital and 100,000 advanced GPUs ready to ship. How will you power and cool your data center? Make your choices below and see the consequences.
                 </p>
             </div>
 
@@ -81,7 +81,7 @@
                     <div>
                         <label class="block text-sm font-semibold text-slate-300 mb-2">2. Choose Your Cooling Architecture:</label>
                         <select x-model="coolingChoice" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
-                            <option value="air">Standard Air Cooling (Cheap, but limits rack density)</option>
+                            <option value="air">Standard Air Cooling (Slower, bulky footprint)</option>
                             <option value="liquid">Direct-to-Chip Modular Liquid Cooling (Fast & dense)</option>
                         </select>
                     </div>
@@ -112,36 +112,40 @@
         </section>
 
 
-        <!-- MODULE 2: THE JEVONS PARADOX & TOKEN SLIDER -->
+        <!-- MODULE 2: THE JEVONS PARADOX & TIMELINE SLIDER -->
         <section class="space-y-8">
-            <div class="max-w-2xl">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">📈 The Jevons Paradox: Why Cheaper AI Increases Demand</h2>
-                <p class="text-slate-400 text-sm md:text-base">
-                    As hardware efficiency improves, the cost per AI token drops. Drag the efficiency slider to see how lower costs trigger an explosion in autonomous agent demand, slamming straight into physical power ceilings.
+            <div class="max-w-3xl">
+                <span class="text-cyan-400 text-xs uppercase tracking-wider font-semibold">Macroeconomic Paradox</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mt-2 mb-3">📈 The Jevons Paradox: Why Cheaper AI Accelerates Power Crises</h2>
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                    Standard intuition suggests that as AI hardware becomes more efficient, total energy consumption will drop. In reality, the opposite occurs (the Jevons Paradox): when token costs plummet, usage explodes from simple chat queries to autonomous background agents. Drag the timeline slider below to see how efficiency gains drive exponential demand.
                 </p>
             </div>
 
             <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-8 md:p-12 space-y-8">
                 <div>
-                    <div class="flex justify-between items-center mb-4">
-                        <label class="text-sm font-semibold text-slate-300">Model Efficiency & Hardware Optimization Gain:</label>
-                        <span class="text-cyan-400 font-mono font-bold text-lg" x-text="efficiency + '%'"></span>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2">
+                        <label class="text-sm font-semibold text-slate-300">Projected Timeline & Efficiency Gain:</label>
+                        <span class="text-cyan-400 font-mono font-bold text-base bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full" x-text="timelineYear"></span>
                     </div>
                     <input type="range" min="10" max="100" x-model="efficiency" class="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-cyan-500">
                 </div>
 
+                <!-- Dynamic explanation card based on slider position -->
+                <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 text-sm text-slate-300 italic" x-text="jevonsDesc"></div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-slate-800">
                     <div class="bg-slate-950/60 border border-slate-800/50 rounded-xl p-5 text-center">
-                        <span class="block text-slate-500 text-xs mb-1">Cost Per Token</span>
+                        <span class="block text-slate-500 text-xs mb-1">Estimated Cost Per Token</span>
                         <span class="text-2xl font-bold text-emerald-400 mono" x-text="'$' + (0.05 * (1 - efficiency/120)).toFixed(4)"></span>
                     </div>
                     <div class="bg-slate-950/60 border border-slate-800/50 rounded-xl p-5 text-center">
-                        <span class="block text-slate-500 text-xs mb-1">Total Token Volume</span>
+                        <span class="block text-slate-500 text-xs mb-1">Global Daily Token Volume</span>
                         <span class="text-2xl font-bold text-cyan-400 mono" x-text="(efficiency * 14.5).toFixed(0) + ' Billion/day'"></span>
                     </div>
                     <div class="bg-slate-950/60 border border-slate-800/50 rounded-xl p-5 text-center">
-                        <span class="block text-slate-500 text-xs mb-1">Grid Deficit Status</span>
-                        <span class="text-2xl font-bold text-rose-400 mono" x-text="efficiency > 70 ? 'CRITICAL OVERLOAD' : 'CONSTRAINED'"></span>
+                        <span class="block text-slate-500 text-xs mb-1">Physical Grid Status</span>
+                        <span class="text-2xl font-bold text-rose-400 mono" x-text="efficiency > 70 ? 'CRITICAL OVERLOAD' : (efficiency > 35 ? 'STRAINED' : 'BASELINE')"></span>
                     </div>
                 </div>
             </div>
@@ -254,34 +258,81 @@
             return {
                 powerChoice: 'turbines',
                 coolingChoice: 'liquid',
-                efficiency: 65,
+                efficiency: 20, // Starts at current baseline
                 regLevel: 'high',
+
+                // Maps the 0-100 slider to a realistic 2026-2030 timeline
+                get timelineYear() {
+                    if (this.efficiency < 35) return "2026 (Current Baseline)";
+                    if (this.efficiency < 70) return "2028 (Quantization & Edge Breakthroughs)";
+                    return "2030 (Ubiquitous Autonomous Agents)";
+                },
+
+                get jevonsDesc() {
+                    if (this.efficiency < 35) {
+                        return "Today: High compute costs force enterprises to ration AI usage to summaries and basic text generation. Grid demand is high, but contained.";
+                    } else if (this.efficiency < 70) {
+                        return "Near-Future: Algorithmic optimizations drop token costs. Businesses embed AI into background workflows, causing overall volume to surge.";
+                    } else {
+                        return "The Paradox Peak: Tokens become nearly free. Autonomous agents run 24/7 for every household and enterprise task. Total demand goes vertical, completely overwhelming the physical grid.";
+                    }
+                },
                 
                 get outcome() {
                     if (this.powerChoice === 'grid') {
-                        return {
-                            time: '3 to 5 Years',
-                            risk: 'Very Low',
-                            riskClass: 'bg-emerald-950 text-emerald-400 border border-emerald-800',
-                            edge: 'Lagging Competitors',
-                            description: 'Safe from lawsuits, but competitors capture the market years before your servers turn on.'
-                        };
+                        if (this.coolingChoice === 'liquid') {
+                            return {
+                                time: '3 to 4 Years',
+                                risk: 'Low',
+                                riskClass: 'bg-emerald-950 text-emerald-400 border border-emerald-800',
+                                edge: 'Balanced & Dense',
+                                description: 'Waiting on the public grid queue, but liquid cooling ensures maximum rack density once power arrives.'
+                            };
+                        } else {
+                            return {
+                                time: '4 to 5 Years',
+                                risk: 'Very Low',
+                                riskClass: 'bg-emerald-950 text-emerald-400 border border-emerald-800',
+                                edge: 'Lagging Competitors',
+                                description: 'Long grid queue combined with sprawling air-cooling footprints leaves you trailing agile competitors.'
+                            };
+                        }
                     } else if (this.powerChoice === 'turbines') {
-                        return {
-                            time: '122 Days',
-                            risk: 'Extreme (Lawsuits & Fines)',
-                            riskClass: 'bg-rose-950 text-rose-400 border border-rose-800',
-                            edge: 'First-Mover Dominance',
-                            description: 'Bypasses the grid instantly using trailer gas turbines, triggering fierce community backlash and federal court battles.'
-                        };
-                    } else {
-                        return {
-                            time: '18 to 24 Months',
-                            risk: 'Moderate',
-                            riskClass: 'bg-amber-950 text-amber-400 border border-amber-800',
-                            edge: 'Sustainable & Secure',
-                            description: 'Co-locates behind-the-meter with clean power; slower than gas turbines, but legally bulletproof.'
-                        };
+                        if (this.coolingChoice === 'liquid') {
+                            return {
+                                time: '90 Days',
+                                risk: 'Extreme (High Litigation)',
+                                riskClass: 'bg-rose-950 text-rose-400 border border-rose-800',
+                                edge: 'Maximum Velocity',
+                                description: 'Hyper-dense liquid cooling paired with trailer turbines achieves record deployment speeds, triggering immediate federal court scrutiny.'
+                            };
+                        } else {
+                            return {
+                                time: '150 Days',
+                                risk: 'High (Logistical Delays)',
+                                riskClass: 'bg-rose-950 text-rose-400 border border-rose-800',
+                                edge: 'First-Mover (Bulky)',
+                                description: 'Fast mobile turbines, but standard air cooling requires a massive physical warehouse footprint, slowing down assembly.'
+                            };
+                        }
+                    } else { // Nuclear PPA
+                        if (this.coolingChoice === 'liquid') {
+                            return {
+                                time: '18 Months',
+                                risk: 'Moderate',
+                                riskClass: 'bg-amber-950 text-amber-400 border border-amber-800',
+                                edge: 'Sustainable & Elite',
+                                description: 'Behind-the-meter nuclear power combined with state-of-the-art liquid cooling creates the ultimate future-proof campus.'
+                            };
+                        } else {
+                            return {
+                                time: '24 Months',
+                                risk: 'Low-Moderate',
+                                riskClass: 'bg-amber-950 text-amber-400 border border-amber-800',
+                                edge: 'Clean & Steady',
+                                description: 'Secure nuclear power source, though air cooling limits your maximum computing density per square foot.'
+                            };
+                        }
                     }
                 }
             }
